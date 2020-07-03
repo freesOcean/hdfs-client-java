@@ -7,6 +7,9 @@ import org.junit.Test;
 
 import java.net.URI;
 
+/**
+ * HDFS客户端文件操作API
+ */
 public class HDFSClientAPI {
 
     private String url = "hdfs://192.168.43.11:9000";

@@ -15,21 +15,30 @@ import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IOUtils;
 import org.junit.Test;
 
+/**
+ * HDFS IO流相关操作
+ */
 public class HDFSIO {
 
-	// 把本地e盘上的banhua.txt文件上传到HDFS根目录
+
+	/**
+	 * 通过流 上传文件到HDFS
+	 * @throws IOException
+	 * @throws InterruptedException
+	 * @throws URISyntaxException
+	 */
 	@Test
 	public void putFileToHDFS() throws IOException, InterruptedException, URISyntaxException{
 		
 		// 1 获取对象
 		Configuration conf = new Configuration();
-		FileSystem fs = FileSystem.get(new URI("hdfs://hadoop102:9000"), conf , "atguigu");
+		FileSystem fs = FileSystem.get(new URI("hdfs://hadoop101:9000"), conf , "xiaomao");
 		
 		// 2 获取输入流
-		FileInputStream fis = new FileInputStream(new File("e:/banzhang.txt"));
+		FileInputStream fis = new FileInputStream(new File("f:/测试文件.docx"));
 		
 		// 3 获取输出流
-		FSDataOutputStream fos = fs.create(new Path("/banzhang.txt"));
+		FSDataOutputStream fos = fs.create(new Path("/zx/622/测试文件.docx"));
 		
 		// 4 流的对拷
 		IOUtils.copyBytes(fis, fos, conf);
@@ -39,21 +48,26 @@ public class HDFSIO {
 		IOUtils.closeStream(fis);
 		fs.close();
 	}
-	
-	
-	// 从HDFS上下载banhua.txt文件到本地e盘上
+
+
+	/**
+	 * 通过流下载hdfs上的文件到本地
+	 * @throws IOException
+	 * @throws InterruptedException
+	 * @throws URISyntaxException
+	 */
 	@Test
 	public void getFileFromHDFS() throws IOException, InterruptedException, URISyntaxException{
 		
 		// 1 获取对象
 		Configuration conf = new Configuration();
-		FileSystem fs = FileSystem.get(new URI("hdfs://hadoop102:9000"), conf , "atguigu");
+		FileSystem fs = FileSystem.get(new URI("hdfs://hadoop101:9000"), conf , "xiaomao");
 		
 		// 2 获取输入流
-		FSDataInputStream fis = fs.open(new Path("/banhua.txt"));
+		FSDataInputStream fis = fs.open(new Path("/zx/622/测试文件.docx"));
 		
 		// 3 获取输出流
-		FileOutputStream fos = new FileOutputStream(new File("e:/banhua.txt"));
+		FileOutputStream fos = new FileOutputStream(new File("f:/download.docx"));
 		
 		// 4 流的对拷
 		IOUtils.copyBytes(fis, fos, conf);
@@ -64,23 +78,23 @@ public class HDFSIO {
 		fs.close();
 	}
 	
-	// 下载第一块
+	//下载第一块
 	@Test
 	public void readFileSeek1() throws IOException, InterruptedException, URISyntaxException{
 		
 		// 1 获取对象
 		Configuration conf = new Configuration();
-		FileSystem fs = FileSystem.get(new URI("hdfs://hadoop102:9000"), conf , "atguigu");
+		FileSystem fs = FileSystem.get(new URI("hdfs://hadoop101:9000"), conf , "xiaomao");
 		
 		// 2 获取输入流
-		FSDataInputStream fis = fs.open(new Path("/hadoop-2.7.2.tar.gz"));
+		FSDataInputStream fis = fs.open(new Path("/zx/622/测试文件.docx"));
 		
 		// 3 获取输出流
-		FileOutputStream fos = new FileOutputStream(new File("e:/hadoop-2.7.2.tar.gz.part1"));
+		FileOutputStream fos = new FileOutputStream(new File("f:/测试文件.docx.part1"));
 		
-		// 4 流的对拷（只拷贝128m）
+		// 4 流的对拷（只拷贝20m）
 		byte[] buf = new byte[1024];
-		for (int i = 0; i < 1024 * 128; i++) {
+		for (int i = 0; i < 1024 * 20; i++) {
 			fis.read(buf);
 			fos.write(buf);
 		}
@@ -98,16 +112,16 @@ public class HDFSIO {
 		
 		// 1 获取对象
 		Configuration conf = new Configuration();
-		FileSystem fs = FileSystem.get(new URI("hdfs://hadoop102:9000"), conf , "atguigu");
+		FileSystem fs = FileSystem.get(new URI("hdfs://hadoop101:9000"), conf , "xiaomao");
 		
 		// 2 获取输入流
-		FSDataInputStream fis = fs.open(new Path("/hadoop-2.7.2.tar.gz"));
+		FSDataInputStream fis = fs.open(new Path("/zx/622/测试文件.docx"));
 		
 		// 3 设置指定读取的起点
-		fis.seek(1024*1024*128);
+		fis.seek(1024*1024*20);
 		
 		// 4 获取输出流
-		FileOutputStream fos = new FileOutputStream(new File("e:/hadoop-2.7.2.tar.gz.part2"));
+		FileOutputStream fos = new FileOutputStream(new File("f:/测试文件.docx.part2"));
 		
 		// 5 流的对拷
 		IOUtils.copyBytes(fis, fos, conf);
