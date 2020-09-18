@@ -1,4 +1,4 @@
-package com.zd.hadoop.FileInputFormat;
+package com.zd.hadoop.MyInputFormat;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
@@ -16,7 +16,7 @@ import java.io.IOException;
  *
  * @author zx
  * @date 2020/9/2 0002 08:44
- * @description:
+ * @description: 自定义InputFormat案例
  */
 public class WholeFileDriver {
     public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {

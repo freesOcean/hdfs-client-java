@@ -28,6 +28,7 @@ public class OrderBean implements WritableComparable<OrderBean> {
         this.price = price;
     }
 
+    //返回1,表示不swap
     @Override
     public int compareTo(OrderBean o) {
         //先按照订单编号升序排序，如果订单编号一致，再按金额降序排序

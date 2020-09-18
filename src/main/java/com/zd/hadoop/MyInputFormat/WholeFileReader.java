@@ -1,10 +1,9 @@
-package com.zd.hadoop.FileInputFormat;
+package com.zd.hadoop.MyInputFormat;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FSDataInputStream;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.ByteWritable;
 import org.apache.hadoop.io.BytesWritable;
 import org.apache.hadoop.io.IOUtils;
 import org.apache.hadoop.io.Text;
@@ -37,7 +36,7 @@ public class WholeFileReader extends RecordReader<Text, BytesWritable> {
 
     /**
      * 核心业务逻辑
-     * @return 返回false表示处理完毕，后续没有处理的切片。true表示继续处理，对应Mapper的run方法是否继续下一次处理。
+     * @return 返回false表示一次读取完毕，。true表示继续处理，对应Mapper的run方法是否继续下一次处理。
      * 一个切片会new 一个WholeFileReader
      * @throws IOException
      * @throws InterruptedException

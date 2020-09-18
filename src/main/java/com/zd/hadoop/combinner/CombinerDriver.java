@@ -52,10 +52,11 @@ public class CombinerDriver {
         FileInputFormat.setInputPaths(job, new Path(args[0]));
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
 
-        //不设置默认根据切片决定，默认是1
-//        job.setNumReduceTasks(2);
 
 //        job.setCombinerClass(WordcountCombiner.class);
+
+        //或者
+//        job.setCombinerClass(WordcountReducer.class);
 
         int a = job.getNumReduceTasks();
         System.out.println("taskNum :"+a);

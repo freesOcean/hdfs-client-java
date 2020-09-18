@@ -4,6 +4,8 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
+import org.apache.hadoop.io.compress.CompressionCodec;
+import org.apache.hadoop.io.compress.GzipCodec;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
@@ -25,10 +27,17 @@ public class TextInputFormatDriver {
     public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
         args = new String[]{"f:/zx/input/words1.txt","f:/zx/output5"};
         Configuration conf = new Configuration();
+
+        //开启Map阶段的压缩
+        conf.setBoolean("",true);
+        conf.setClass("", GzipCodec.class, CompressionCodec.class);
+
         //1.获取job对象
         Job job = Job.getInstance(conf);
         //2.设置jar存储位置
         job.setJarByClass(TextInputFormatDriver.class);
+
+
 
         //3.关联Map和Reduce类
         job.setMapperClass(TextInputFormatMapper.class);
@@ -46,7 +55,14 @@ public class TextInputFormatDriver {
         FileInputFormat.setInputPaths(job,new Path(args[0]));
         FileOutputFormat.setOutputPath(job,new Path(args[1]));
 
+        //设置Reducer输出压缩
+        FileOutputFormat.setOutputCompressorClass(job,GzipCodec.class);
+
+        FileInputFormat.setMaxInputSplitSize(job,256*1024*1024);
+
         job.setNumReduceTasks(2);
+
+
 
         //7.提交job
         boolean result =job.waitForCompletion(true);

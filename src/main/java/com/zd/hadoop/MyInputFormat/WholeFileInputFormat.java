@@ -1,4 +1,4 @@
-package com.zd.hadoop.FileInputFormat;
+package com.zd.hadoop.MyInputFormat;
 
 import org.apache.hadoop.io.BytesWritable;
 import org.apache.hadoop.io.Text;
