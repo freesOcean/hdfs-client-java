@@ -20,7 +20,7 @@ import java.io.IOException;
 public class WordcountDriver {
     public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
 
-        args = new String[]{"f:/zx/input/words.txt","f:/zx/output3"};
+        args = new String[]{"f:/zx/input/words.txt","f:/zx/output6"};
         // 1 获取配置信息以及封装任务
         Configuration configuration = new Configuration();
         Job job = Job.getInstance(configuration);

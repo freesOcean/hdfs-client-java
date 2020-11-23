@@ -16,7 +16,7 @@ public class PartitionDriver {
 
     public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
 
-		args = new String[]{"f:/zx/input/phone_data_s.txt","f:/zx/output1"};
+		args = new String[]{"f:/zx/input/phone_data_s.txt","f:/zx/output3"};
 
         Configuration conf = new Configuration();
         // 1 获取job对象
@@ -47,6 +47,7 @@ public class PartitionDriver {
 
         // 7 提交job
         boolean result = job.waitForCompletion(true);
+
 
         System.exit(result?0 :1);
     }
